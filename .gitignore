@@ -2,6 +2,7 @@
 *.o
 *.pyc
 *.pyo
+*.so
 Makefile
 Makefile.in
 acinclude.m4
