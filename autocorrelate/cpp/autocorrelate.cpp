@@ -7,13 +7,13 @@
 
 **************************************************************************/
 
-#include "autocorolate.h"
+#include "autocorrelate.h"
 
-PREPARE_LOGGING(autocorolate_i)
+PREPARE_LOGGING(autocorrelate_i)
 
-autocorolate_i::autocorolate_i(const char *uuid, const char *label) :
-    autocorolate_base(uuid, label),
-        autocorolator(realOutput, correlationSize, inputOverlap, numAverages,translateOutputType(),zeroMean, zeroCenter),
+autocorrelate_i::autocorrelate_i(const char *uuid, const char *label) :
+    autocorrelate_base(uuid, label),
+        autocorrelator(realOutput, correlationSize, inputOverlap, numAverages,translateOutputType(),zeroMean, zeroCenter),
         paramsChanged(false),
         updateCorrelationSize(false),
         updateInputOverlap(false),
@@ -23,30 +23,30 @@ autocorolate_i::autocorolate_i(const char *uuid, const char *label) :
         updateZeroCenter(false)
 
 {
-		setPropertyChangeListener("correlationSize", this, &autocorolate_i::correlationSizeChanged);
-		setPropertyChangeListener("inputOverlap", this, &autocorolate_i::inputOverlapChanged);
-		setPropertyChangeListener("numAverages", this, &autocorolate_i::numAveragesChanged);
-		setPropertyChangeListener("outputType", this, &autocorolate_i::outputTypeChanged);
-		setPropertyChangeListener("zeroMean", this, &autocorolate_i::zeroMeanChanged);
-		setPropertyChangeListener("zeroCenter", this, &autocorolate_i::zeroCenterChanged);
+		setPropertyChangeListener("correlationSize", this, &autocorrelate_i::correlationSizeChanged);
+		setPropertyChangeListener("inputOverlap", this, &autocorrelate_i::inputOverlapChanged);
+		setPropertyChangeListener("numAverages", this, &autocorrelate_i::numAveragesChanged);
+		setPropertyChangeListener("outputType", this, &autocorrelate_i::outputTypeChanged);
+		setPropertyChangeListener("zeroMean", this, &autocorrelate_i::zeroMeanChanged);
+		setPropertyChangeListener("zeroCenter", this, &autocorrelate_i::zeroCenterChanged);
 }
 
-autocorolate_i::~autocorolate_i()
+autocorrelate_i::~autocorrelate_i()
 {
 }
 
 
-Autocorolator::OUTPUT_TYPE autocorolate_i::translateOutputType() {
-      Autocorolator::OUTPUT_TYPE outType;
+Autocorrelator::OUTPUT_TYPE autocorrelate_i::translateOutputType() {
+      Autocorrelator::OUTPUT_TYPE outType;
       if (outputType == "ROTATED")
-              outType = Autocorolator::ROTATED;
+              outType = Autocorrelator::ROTATED;
       else if (outputType == "SUPERIMPOSED")
-              outType = Autocorolator::SUPERIMPOSED;
+              outType = Autocorrelator::SUPERIMPOSED;
       else
       {
               if (outputType != "NORMAL")
                       std::cout<<"You have chosen an invalid outputType "<< outputType<<". Using NORMAL instead"<<std::endl;
-              outType = Autocorolator::STANDARD;
+              outType = Autocorrelator::STANDARD;
       }
 
       return outType;
@@ -140,7 +140,7 @@ Autocorolator::OUTPUT_TYPE autocorolate_i::translateOutputType() {
         "prop_n", where "n" is the ordinal number of the property in the PRF file.
         Property types are mapped to the nearest C++ type, (e.g. "string" becomes
         "std::string"). All generated properties are declared in the base class
-        (autocorolate_base).
+        (autocorrelate_base).
     
         Simple sequence properties are mapped to "std::vector" of the simple type.
         Struct properties, if used, are mapped to C++ structs defined in the
@@ -161,30 +161,30 @@ Autocorolator::OUTPUT_TYPE autocorolate_i::translateOutputType() {
             
         A callback method can be associated with a property so that the method is
         called each time the property value changes.  This is done by calling 
-        setPropertyChangeListener(<property name>, this, &autocorolate_i::<callback method>)
+        setPropertyChangeListener(<property name>, this, &autocorrelate_i::<callback method>)
         in the constructor.
             
         Example:
             // This example makes use of the following Properties:
             //  - A float value called scaleValue
             
-        //Add to autocorolate.cpp
-        autocorolate_i::autocorolate_i(const char *uuid, const char *label) :
-            autocorolate_base(uuid, label)
+        //Add to autocorrelate.cpp
+        autocorrelate_i::autocorrelate_i(const char *uuid, const char *label) :
+            autocorrelate_base(uuid, label)
         {
-            setPropertyChangeListener("scaleValue", this, &autocorolate_i::scaleChanged);
+            setPropertyChangeListener("scaleValue", this, &autocorrelate_i::scaleChanged);
         }
 
-        void autocorolate_i::scaleChanged(const std::string& id){
+        void autocorrelate_i::scaleChanged(const std::string& id){
             std::cout << "scaleChanged scaleValue " << scaleValue << std::endl;
         }
             
-        //Add to autocorolate.h
+        //Add to autocorrelate.h
         void scaleChanged(const std::string&);
         
         
 ************************************************************************************************/
-int autocorolate_i::serviceFunction()
+int autocorrelate_i::serviceFunction()
 {
 	bulkio::InFloatPort::dataTransfer *tmp = dataFloat_in->getPacket(bulkio::Const::BLOCKING);
 	if (not tmp) { // No data is available
@@ -195,7 +195,7 @@ int autocorolate_i::serviceFunction()
 	bool pushSRI = tmp->sriChanged;
 	if (tmp->SRI.mode==1)
 	{
-		std::cout<<"complex autocorolation currently not supported"<<std::endl;
+		std::cout<<"complex autocorrelation currently not supported"<<std::endl;
 		delete tmp;
 		return NORMAL;
 	}
@@ -207,46 +207,46 @@ int autocorolate_i::serviceFunction()
 		if (updateCorrelationSize)
 		{
 			std::cout<<"component settign correlationSize to "<<correlationSize<<std::endl;
-			autocorolator.setCorelationSize(correlationSize);
+			autocorrelator.setCorrelationSize(correlationSize);
 			pushSRI=true;
 			updateCorrelationSize=false;
 		}
 		if (updateInputOverlap)
 		{
-			autocorolator.setOverlap(inputOverlap);
+			autocorrelator.setOverlap(inputOverlap);
 			pushSRI=true;
 			updateInputOverlap=false;
 		}
 		if (updateNumAverages)
 		{
 			std::cout<<"setNumAverages "<<numAverages<<std::endl;
-			autocorolator.setNumAverages(numAverages);
+			autocorrelator.setNumAverages(numAverages);
 			std::cout<<"setNumAverages done"<<std::endl;
 			pushSRI=true;
 			updateNumAverages=false;
 		}
 		if (updateOutputType)
 		{
-			Autocorolator::OUTPUT_TYPE outType = translateOutputType();
+			Autocorrelator::OUTPUT_TYPE outType = translateOutputType();
 			std::cout<<"updateOutputType "<<outputType<<", "<< outType<<std::endl;
-			autocorolator.setOutputType(outType);
+			autocorrelator.setOutputType(outType);
 			updateOutputType=false;
 		}
 		if (updateZeroMean)
 		{
-			autocorolator.setZeroMean(zeroMean);
+			autocorrelator.setZeroMean(zeroMean);
 			updateZeroMean=false;
 		}
 		if (updateZeroCenter)
 		{
 			std::cout<<"calling updateZeroCenter with "<<zeroCenter<<std::endl;
-			autocorolator.setZeroCenter(zeroCenter);
+			autocorrelator.setZeroCenter(zeroCenter);
 			updateZeroCenter=false;
 		}
 		paramsChanged=false;
 		std::cout<<"paramsChanged done "<<zeroCenter<<std::endl;
 	}
-	autocorolator.run(tmp->dataBuffer);
+	autocorrelator.run(tmp->dataBuffer);
 	if (pushSRI)
 	{
 		size_t outFrameSize = 2*correlationSize-1;
@@ -265,33 +265,33 @@ int autocorolate_i::serviceFunction()
 
 }
 
-void autocorolate_i::correlationSizeChanged(const std::string&)
+void autocorrelate_i::correlationSizeChanged(const std::string&)
 {
 	updateCorrelationSize=true;
 	paramsChanged=true;
 }
-void autocorolate_i::inputOverlapChanged(const std::string&)
+void autocorrelate_i::inputOverlapChanged(const std::string&)
 {
 	updateInputOverlap=true;
 	paramsChanged=true;
 }
-void autocorolate_i::numAveragesChanged(const std::string&)
+void autocorrelate_i::numAveragesChanged(const std::string&)
 {
 	updateNumAverages=true;
 	paramsChanged=true;
 }
-void autocorolate_i::outputTypeChanged(const std::string&)
+void autocorrelate_i::outputTypeChanged(const std::string&)
 {
 	std::cout<<"outputTypeChanged "<<std::endl;
 	updateOutputType=true;
 	paramsChanged=true;
 }
-void autocorolate_i::zeroMeanChanged(const std::string&)
+void autocorrelate_i::zeroMeanChanged(const std::string&)
 {
 	updateZeroMean=true;
 	paramsChanged=true;
 }
-void autocorolate_i::zeroCenterChanged(const std::string&)
+void autocorrelate_i::zeroCenterChanged(const std::string&)
 {
 	updateZeroCenter=true;
 	paramsChanged=true;

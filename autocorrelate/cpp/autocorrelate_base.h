@@ -1,5 +1,5 @@
-#ifndef AUTOCOROLATE_IMPL_BASE_H
-#define AUTOCOROLATE_IMPL_BASE_H
+#ifndef AUTOCORRELATE_IMPL_BASE_H
+#define AUTOCORRELATE_IMPL_BASE_H
 
 #include <boost/thread.hpp>
 #include <ossie/Resource_impl.h>
@@ -10,7 +10,7 @@
 #define FINISH -1
 #define NORMAL 1
 
-class autocorolate_base;
+class autocorrelate_base;
 
 template < typename TargetClass >
 class ProcessThread
@@ -78,10 +78,10 @@ class ProcessThread
         boost::mutex _eor_mutex;
 };
 
-class autocorolate_base : public Resource_impl
+class autocorrelate_base : public Resource_impl
 {
     public:
-        autocorolate_base(const char *uuid, const char *label);
+        autocorrelate_base(const char *uuid, const char *label);
 
         void start() throw (CF::Resource::StartError, CORBA::SystemException);
 
@@ -98,7 +98,7 @@ class autocorolate_base : public Resource_impl
         virtual int serviceFunction() = 0;
 
     protected:
-        ProcessThread<autocorolate_base> *serviceThread; 
+        ProcessThread<autocorrelate_base> *serviceThread; 
         boost::mutex serviceThreadLock;
 
         // Member variables exposed as properties

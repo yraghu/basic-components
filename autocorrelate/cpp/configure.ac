@@ -1,4 +1,4 @@
-AC_INIT(autocorolate, 1.0.0)
+AC_INIT(autocorrelate, 1.0.0)
 AM_INIT_AUTOMAKE(nostdinc)
 
 AC_PROG_CC

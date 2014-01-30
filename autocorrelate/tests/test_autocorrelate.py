@@ -77,7 +77,7 @@ def genSqWave(fs, freq, numPts, cx=True, startTime=0, amp=1):
 
 
 class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
-    """Test for all component implementations in autocorolate"""
+    """Test for all component implementations in autocorrelate"""
 
     def setUp(self):
         """Set up the unit test - this is run before every method that starts with test
@@ -265,4 +265,4 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
     # for modules that will assist with testing components with BULKIO ports
     
 if __name__ == "__main__":
-    ossie.utils.testing.main("../autocorolate.spd.xml") # By default tests all implementations
+    ossie.utils.testing.main("../autocorrelate.spd.xml") # By default tests all implementations

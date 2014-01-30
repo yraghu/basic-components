@@ -1,4 +1,4 @@
-#include "autocorolate_base.h"
+#include "autocorrelate_base.h"
 
 /*******************************************************************************************
 
@@ -10,14 +10,14 @@
 
 ******************************************************************************************/
 
-autocorolate_base::autocorolate_base(const char *uuid, const char *label) :
+autocorrelate_base::autocorrelate_base(const char *uuid, const char *label) :
     Resource_impl(uuid, label),
     serviceThread(0)
 {
     construct();
 }
 
-void autocorolate_base::construct()
+void autocorrelate_base::construct()
 {
     Resource_impl::_started = false;
     loadProperties();
@@ -37,16 +37,16 @@ void autocorolate_base::construct()
     Framework-level functions
     These functions are generally called by the framework to perform housekeeping.
 *******************************************************************************************/
-void autocorolate_base::initialize() throw (CF::LifeCycle::InitializeError, CORBA::SystemException)
+void autocorrelate_base::initialize() throw (CF::LifeCycle::InitializeError, CORBA::SystemException)
 {
 }
 
-void autocorolate_base::start() throw (CORBA::SystemException, CF::Resource::StartError)
+void autocorrelate_base::start() throw (CORBA::SystemException, CF::Resource::StartError)
 {
     boost::mutex::scoped_lock lock(serviceThreadLock);
     if (serviceThread == 0) {
         dataFloat_in->unblock();
-        serviceThread = new ProcessThread<autocorolate_base>(this, 0.1);
+        serviceThread = new ProcessThread<autocorrelate_base>(this, 0.1);
         serviceThread->start();
     }
     
@@ -55,7 +55,7 @@ void autocorolate_base::start() throw (CORBA::SystemException, CF::Resource::Sta
     }
 }
 
-void autocorolate_base::stop() throw (CORBA::SystemException, CF::Resource::StopError)
+void autocorrelate_base::stop() throw (CORBA::SystemException, CF::Resource::StopError)
 {
     boost::mutex::scoped_lock lock(serviceThreadLock);
     // release the child thread (if it exists)
@@ -72,7 +72,7 @@ void autocorolate_base::stop() throw (CORBA::SystemException, CF::Resource::Stop
     }
 }
 
-CORBA::Object_ptr autocorolate_base::getPort(const char* _id) throw (CORBA::SystemException, CF::PortSupplier::UnknownPort)
+CORBA::Object_ptr autocorrelate_base::getPort(const char* _id) throw (CORBA::SystemException, CF::PortSupplier::UnknownPort)
 {
 
     std::map<std::string, Port_Provides_base_impl *>::iterator p_in = inPorts.find(std::string(_id));
@@ -93,7 +93,7 @@ CORBA::Object_ptr autocorolate_base::getPort(const char* _id) throw (CORBA::Syst
     throw (CF::PortSupplier::UnknownPort());
 }
 
-void autocorolate_base::releaseObject() throw (CORBA::SystemException, CF::LifeCycle::ReleaseError)
+void autocorrelate_base::releaseObject() throw (CORBA::SystemException, CF::LifeCycle::ReleaseError)
 {
     // This function clears the component running condition so main shuts down everything
     try {
@@ -112,7 +112,7 @@ void autocorolate_base::releaseObject() throw (CORBA::SystemException, CF::LifeC
     Resource_impl::releaseObject();
 }
 
-void autocorolate_base::loadProperties()
+void autocorrelate_base::loadProperties()
 {
     addProperty(correlationSize,
                 4096,
