@@ -44,13 +44,13 @@ A collection of starter components for REDHAWK
 export PATH=$JAVA_HOME/bin:$PATH
 
 # Build the DSP library first
-pushd dsp/Release
+pushd dsp
 make %{?_smp_mflags}
 popd
 
 #Next build the fftlib library
 
-pushd fftlib/Release
+pushd fftlib
 make %{?_smp_mflags}
 popd
 
@@ -83,21 +83,15 @@ do
 done
 
 # Install the DSP library
-mkdir -p %{buildroot}%{_sdrroot}/dom/components/dsp
-install -m 664 dsp/dsp.spd.xml %{buildroot}%{_sdrroot}/dom/components/dsp/dsp.spd.xml
-mkdir -p %{buildroot}%{_sdrroot}/dom/components/dsp/Release
-install dsp/Release/libdsp.so %{buildroot}%{_sdrroot}/dom/components/dsp/Release/libdsp.so
-mkdir -p %{buildroot}%{_sdrroot}/dom/components/dsp/inc
-install -m 664 dsp/inc/*.h %{buildroot}%{_sdrroot}/dom/components/dsp/inc
+pushd dsp
+make install
+popd
+
 
 # Install the FFTLIB library
-mkdir -p %{buildroot}%{_sdrroot}/dom/components/fftlib
-install -m 664 fftlib/fftlib.spd.xml %{buildroot}%{_sdrroot}/dom/components/fftlib/fftlib.spd.xml
-mkdir -p %{buildroot}%{_sdrroot}/dom/components/fftlib/Release
-install fftlib/Release/libfftlib.so %{buildroot}%{_sdrroot}/dom/components/fftlib/Release/libfftlib.so
-mkdir -p %{buildroot}%{_sdrroot}/dom/components/fftlib/inc
-install -m 664 fftlib/inc/*.h %{buildroot}%{_sdrroot}/dom/components/fftlib/inc
-
+pushd dsp
+make install
+popd
 
 %clean
 rm -rf %{buildroot}
