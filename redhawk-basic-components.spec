@@ -84,15 +84,19 @@ done
 
 # Install the DSP library
 mkdir -p %{buildroot}%{_sdrroot}/dom/components/dsp
-install dsp/dsp.spd.xml %{buildroot}%{_sdrroot}/dom/components/dsp/dsp.spd.xml
+install -m 664 dsp/dsp.spd.xml %{buildroot}%{_sdrroot}/dom/components/dsp/dsp.spd.xml
 mkdir -p %{buildroot}%{_sdrroot}/dom/components/dsp/Release
 install dsp/Release/libdsp.so %{buildroot}%{_sdrroot}/dom/components/dsp/Release/libdsp.so
+mkdir -p %{buildroot}%{_sdrroot}/dom/components/dsp/inc
+install -m 664 dsp/inc/*.h %{buildroot}%{_sdrroot}/dom/components/dsp/inc
 
 # Install the FFTLIB library
 mkdir -p %{buildroot}%{_sdrroot}/dom/components/fftlib
-install fftlib/fftlib.spd.xml %{buildroot}%{_sdrroot}/dom/components/fftlib/fftlib.spd.xml
+install -m 664 fftlib/fftlib.spd.xml %{buildroot}%{_sdrroot}/dom/components/fftlib/fftlib.spd.xml
 mkdir -p %{buildroot}%{_sdrroot}/dom/components/fftlib/Release
 install fftlib/Release/libfftlib.so %{buildroot}%{_sdrroot}/dom/components/fftlib/Release/libfftlib.so
+mkdir -p %{buildroot}%{_sdrroot}/dom/components/fftlib/inc
+install -m 664 fftlib/inc/*.h %{buildroot}%{_sdrroot}/dom/components/fftlib/inc
 
 
 %clean
@@ -122,6 +126,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Feb 11 2014 - 1.9.0-6
+- Install header files for libraries
+
 * Tue Jul 9 2013 - 1.9.0-1
 - Update dependencies for Redhawk 1.9
 - Add new components
