@@ -44,15 +44,10 @@ A collection of starter components for REDHAWK
 export PATH=$JAVA_HOME/bin:$PATH
 
 # Build the DSP library first
-pushd dsp
-make %{?_smp_mflags}
-popd
+make -C dsp %{?_smp_mflags}
 
 #Next build the fftlib library
-
-pushd fftlib
-make %{?_smp_mflags}
-popd
+make -C fftlib %{?_smp_mflags}
 
 # Build components
 for dir in agc/cpp AmFmPmBasebandDemod/cpp DataConverter/DataConverter DataReader/python \
@@ -72,26 +67,21 @@ done
 %install
 rm -rf %{buildroot}
 
+# dsp and fftlib aren't autotools projects and don't determine SDRROOT
+# automatically
+SDRROOT=%{_sdrroot}
+export SDRROOT
+
 # Install the components
 for dir in agc/cpp AmFmPmBasebandDemod/cpp DataConverter/DataConverter DataReader/python \
-           DataWriter/python fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
-           HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
+           DataWriter/python dsp fastfilter/cpp fcalc/python fftlib freqfilter/python \
+           HardLimit/cpp HardLimit/java HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
            SigGen/python SigGen/java sinksocket/cpp sourcesocket/cpp \
            TuneFilterDecimate/cpp whitenoise/cpp;
 do
     make -C $dir install DESTDIR=%{buildroot}
 done
 
-# Install the DSP library
-pushd dsp
-make install
-popd
-
-
-# Install the FFTLIB library
-pushd dsp
-make install
-popd
 
 %clean
 rm -rf %{buildroot}
