@@ -3,8 +3,8 @@
 %define _prefix    %{_sdrroot}
 
 Name:		redhawk-basic-components
-Version:	1.9.0
-Release:	6.1%{?dist}
+Version:	1.9.1
+Release:	0.1%{?dist}
 Summary:	A collection of starter components for REDHAWK
 Prefix:		%{_sdrroot}
 
