@@ -50,11 +50,12 @@ make -C dsp %{?_smp_mflags}
 make -C fftlib %{?_smp_mflags}
 
 # Build components
-for dir in agc/cpp AmFmPmBasebandDemod/cpp DataConverter/DataConverter DataReader/python \
-           DataWriter/python fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
+for dir in agc/cpp AmFmPmBasebandDemod/cpp ArbitraryRateResampler/cpp autocorrelate/cpp \
+           DataConverter/DataConverter DataReader/python DataWriter/python \
+           fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
            HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
            SigGen/python SigGen/java sinksocket/cpp sourcesocket/cpp \
-           TuneFilterDecimate/cpp whitenoise/cpp;
+           TuneFilterDecimate/cpp unwrap/cpp whitenoise/cpp;
 do
     cd $dir
     ./reconf
@@ -73,11 +74,12 @@ SDRROOT=%{_sdrroot}
 export SDRROOT
 
 # Install the components
-for dir in agc/cpp AmFmPmBasebandDemod/cpp DataConverter/DataConverter DataReader/python \
-           DataWriter/python dsp fastfilter/cpp fcalc/python fftlib freqfilter/python \
-           HardLimit/cpp HardLimit/java HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
+for dir in agc/cpp AmFmPmBasebandDemod/cpp ArbitraryRateResampler/cpp autocorrelate/cpp \
+           DataConverter/DataConverter DataReader/python DataWriter/python \
+           fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
+           HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
            SigGen/python SigGen/java sinksocket/cpp sourcesocket/cpp \
-           TuneFilterDecimate/cpp whitenoise/cpp;
+           TuneFilterDecimate/cpp unwrap/cpp whitenoise/cpp;
 do
     make -C $dir install DESTDIR=%{buildroot}
 done
@@ -91,6 +93,7 @@ rm -rf %{buildroot}
 %defattr(-,redhawk,redhawk,-)
 %{_sdrroot}/dom/components/agc
 %{_sdrroot}/dom/components/AmFmPmBasebandDemod
+%{_sdrroot}/dom/components/ArbitraryRateResampler
 %{_sdrroot}/dom/components/DataConverter
 %{_sdrroot}/dom/components/DataReader
 %{_sdrroot}/dom/components/DataWriter
@@ -106,10 +109,14 @@ rm -rf %{buildroot}
 %{_sdrroot}/dom/components/sinksocket
 %{_sdrroot}/dom/components/sourcesocket
 %{_sdrroot}/dom/components/TuneFilterDecimate
+%{_sdrroot}/dom/components/unwrap
 %{_sdrroot}/dom/components/whitenoise
 
 
 %changelog
+* Tue Mar  4 2014 - 1.9.1-1
+- Add new components
+
 * Tue Feb 11 2014 - 1.9.0-6
 - Install header files for libraries
 
