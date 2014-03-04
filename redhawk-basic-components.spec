@@ -73,8 +73,9 @@ rm -rf %{buildroot}
 SDRROOT=%{_sdrroot}
 export SDRROOT
 
-# Install the components
-for dir in agc/cpp AmFmPmBasebandDemod/cpp ArbitraryRateResampler/cpp autocorrelate/cpp \
+# Install the libraries and components
+for dir in dsp fftlib \
+           agc/cpp AmFmPmBasebandDemod/cpp ArbitraryRateResampler/cpp autocorrelate/cpp \
            DataConverter/DataConverter DataReader/python DataWriter/python \
            fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
            HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
