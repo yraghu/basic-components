@@ -95,6 +95,7 @@ rm -rf %{buildroot}
 %{_sdrroot}/dom/components/agc
 %{_sdrroot}/dom/components/AmFmPmBasebandDemod
 %{_sdrroot}/dom/components/ArbitraryRateResampler
+%{_sdrroot}/dom/components/autocorrelate
 %{_sdrroot}/dom/components/DataConverter
 %{_sdrroot}/dom/components/DataReader
 %{_sdrroot}/dom/components/DataWriter
