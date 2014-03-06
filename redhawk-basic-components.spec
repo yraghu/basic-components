@@ -3,8 +3,8 @@
 %define _prefix    %{_sdrroot}
 
 Name:		redhawk-basic-components
-Version:	1.9.1
-Release:	0.1%{?dist}
+Version:	1.10.1
+Release:	1%{?dist}
 Summary:	A collection of starter components for REDHAWK
 Prefix:		%{_sdrroot}
 
@@ -14,12 +14,12 @@ URL:		http://redhawksdr.org/
 Source0:	%{name}-%{version}.tar.gz
 Vendor:     REDHAWK
 
-BuildRequires:	redhawk-devel >= 1.9
+BuildRequires:	redhawk-devel >= 1.10
 BuildRequires:	bulkioInterfaces
 BuildRequires:  fftw-devel
-Requires:	redhawk >= 1.9
-Requires:	bulkioInterfaces
-Requires:	scipy
+Requires:	    redhawk >= 1.10
+Requires:	    bulkioInterfaces
+Requires:	    scipy
 Requires:       fftw
 
 AutoReqProv:	no
