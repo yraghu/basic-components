@@ -119,10 +119,10 @@ rm -rf %{buildroot}
 * Tue Mar  4 2014 - 1.9.1-1
 - Add new components
 
-* Tue Feb 11 2014 - 1.9.0-6
+* Tue Feb 11 2014 - 1.10.0-6
 - Install header files for libraries
 
-* Tue Jul 9 2013 - 1.9.0-1
+* Tue Jul 9 2013 - 1.10.0-1
 - Update dependencies for Redhawk 1.9
 - Add new components
 
