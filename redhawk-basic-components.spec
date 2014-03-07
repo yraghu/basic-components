@@ -34,6 +34,14 @@ A collection of starter components for REDHAWK
  * Commit: __REVISION__
  * Source Date/Time: __DATETIME__
 
+%package devel
+Summary:        Development files for %{name}
+Group:          Development/Libraries
+Requires:       %{name} = %{version}-%{release}
+
+%description devel
+Development files for %{name}
+
 
 %prep
 %setup -q
@@ -100,10 +108,14 @@ rm -rf %{buildroot}
 %{_sdrroot}/dom/components/DataConverter
 %{_sdrroot}/dom/components/DataReader
 %{_sdrroot}/dom/components/DataWriter
-%{_sdrroot}/dom/components/dsp
+%dir %{_sdrroot}/dom/components/dsp
+%{_sdrroot}/dom/components/dsp/Release
+%{_sdrroot}/dom/components/dsp/dsp.spd.xml
 %{_sdrroot}/dom/components/fastfilter
 %{_sdrroot}/dom/components/fcalc
-%{_sdrroot}/dom/components/fftlib
+%dir %{_sdrroot}/dom/components/fftlib
+%{_sdrroot}/dom/components/fftlib/Release
+%{_sdrroot}/dom/components/fftlib/fftlib.spd.xml
 %{_sdrroot}/dom/components/freqfilter
 %{_sdrroot}/dom/components/HardLimit
 %{_sdrroot}/dom/components/medianfilter
@@ -114,6 +126,12 @@ rm -rf %{buildroot}
 %{_sdrroot}/dom/components/TuneFilterDecimate
 %{_sdrroot}/dom/components/unwrap
 %{_sdrroot}/dom/components/whitenoise
+
+%files devel
+%defattr(-,redhawk,redhawk,-)
+%doc %{_sdrroot}/dom/components/dsp/doc
+%{_sdrroot}/dom/components/dsp/inc
+%{_sdrroot}/dom/components/fftlib/inc
 
 
 %changelog
