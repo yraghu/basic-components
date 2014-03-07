@@ -2,6 +2,7 @@ REDHAWK basic components is licensed under a combination of the GNU Lesser Gener
 
 The following subset are released according to the terms found in the LGPL-LICENSE:
 agc
+ArbitraryRateResampler
 AmFmPmBasebandDemod
 DataConverter
 DataReader
@@ -14,10 +15,12 @@ medianfilter
 SigGen
 sinksocket
 sourcesocket
-TuneFilterDecimate
+unsrap
 whitenoise
 
 The following subset are released according to the terms found in the GPL-LICENSE:
+autocorrelate
 fftlib
 fastfilter
 psd
+TuneFilterDecimate
