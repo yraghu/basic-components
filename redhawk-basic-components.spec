@@ -17,6 +17,7 @@ Vendor:     REDHAWK
 BuildRequires:	redhawk-devel >= 1.9
 BuildRequires:	bulkioInterfaces
 BuildRequires:  fftw-devel
+BuildRequires:  doxygen
 Requires:	redhawk >= 1.9
 Requires:	bulkioInterfaces
 Requires:	scipy
