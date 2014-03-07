@@ -2,31 +2,31 @@
 %{!?_sdrroot:    %define _sdrroot    /var/redhawk/sdr}
 %define _prefix    %{_sdrroot}
 
-Name:		redhawk-basic-components
-Version:	1.10.1
-Release:	1%{?dist}
-Summary:	A collection of starter components for REDHAWK
-Prefix:		%{_sdrroot}
+Name:           redhawk-basic-components
+Version:        1.10.0
+Release:        1%{?dist}
+Summary:        A collection of starter components for REDHAWK
+Prefix:         %{_sdrroot}
 
-Group:		Applications/Engineering
-License:	LGPLv3+
-URL:		http://redhawksdr.org/	
-Source0:	%{name}-%{version}.tar.gz
-Vendor:     REDHAWK
+Group:          Applications/Engineering
+License:        LGPLv3+
+URL:            http://redhawksdr.org/
+Source0:        %{name}-%{version}.tar.gz
+Vendor:         REDHAWK
 
-BuildRequires:	redhawk-devel >= 1.10
-BuildRequires:	bulkioInterfaces
+BuildRequires:  redhawk-devel >= 1.10
+BuildRequires:  bulkioInterfaces
 BuildRequires:  fftw-devel
 BuildRequires:  doxygen
-Requires:	    redhawk >= 1.10
-Requires:	    bulkioInterfaces
-Requires:	    scipy
+Requires:       redhawk >= 1.10
+Requires:       bulkioInterfaces
+Requires:       scipy
 Requires:       fftw
 
-AutoReqProv:	no
+AutoReqProv:    no
 
 %if 0%{?rhel} < 6
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 %endif
 
 %description
