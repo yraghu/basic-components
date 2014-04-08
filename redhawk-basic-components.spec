@@ -4,7 +4,7 @@
 
 Name:           redhawk-basic-components
 Version:        1.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A collection of starter components for REDHAWK
 Prefix:         %{_sdrroot}
 
@@ -23,7 +23,28 @@ Requires:       bulkioInterfaces
 Requires:       scipy
 Requires:       fftw
 
-AutoReqProv:    no
+# Virtual provides
+Provides:       agc = %{version}-%{release}
+Provides:       AmFmPmBasebandDemod = %{version}-%{release}
+Provides:       ArbitraryRateResampler = %{version}-%{release}
+Provides:       autocorrelate = %{version}-%{release}
+Provides:       DataConverter = %{version}-%{release}
+Provides:       DataReader = %{version}-%{release}
+Provides:       DataWriter = %{version}-%{release}
+Provides:       dsp = %{version}-%{release}
+Provides:       fastfilter = %{version}-%{release}
+Provides:       fcalc = %{version}-%{release}
+Provides:       fftlib = %{version}-%{release}
+Provides:       freqfilter = %{version}-%{release}
+Provides:       HardLimit = %{version}-%{release}
+Provides:       medianfilter = %{version}-%{release}
+Provides:       psd = %{version}-%{release}
+Provides:       SigGen = %{version}-%{release}
+Provides:       sinksocket = %{version}-%{release}
+Provides:       sourcesocket = %{version}-%{release}
+Provides:       TuneFilterDecimate = %{version}-%{release}
+Provides:       unwrap = %{version}-%{release}
+Provides:       whitenoise = %{version}-%{release}
 
 %if 0%{?rhel} < 6
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -38,6 +59,10 @@ A collection of starter components for REDHAWK
 Summary:        Development files for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
+
+# Virtual provides
+Provides:       dsp-devel = %{version}-%{release}
+Provides:       fftlib-devel = %{version}-%{release}
 
 %description devel
 Development files for %{name}
@@ -135,13 +160,14 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Mar  4 2014 - 1.9.1-1
-- Add new components
+* Mon Apr 07 2014 - 1.10.0-5
+- Add virtual provides
 
-* Tue Feb 11 2014 - 1.10.0-6
+* Thu Mar 27 2014 - 1.10.0-4
+- Add new components
 - Install header files for libraries
 
-* Tue Jul 9 2013 - 1.10.0-1
+* Tue Jul 9 2013 - 1.9.0-1
 - Update dependencies for Redhawk 1.9
 - Add new components
 
