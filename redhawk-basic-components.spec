@@ -28,6 +28,7 @@ Provides:       agc = %{version}-%{release}
 Provides:       AmFmPmBasebandDemod = %{version}-%{release}
 Provides:       ArbitraryRateResampler = %{version}-%{release}
 Provides:       autocorrelate = %{version}-%{release}
+Provides:       BurstDeserializer = %{version}-%{release}
 Provides:       DataConverter = %{version}-%{release}
 Provides:       DataReader = %{version}-%{release}
 Provides:       DataWriter = %{version}-%{release}
@@ -59,6 +60,12 @@ A collection of starter components for REDHAWK
 Summary:        Development files for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
+Requires:       fftw-devel
+%if 0%{?rhel} >= 6 || 0%{?fedora} >= 12
+Requires:  boost-devel >= 1.41
+%else
+Requires:  boost141-devel
+%endif
 
 # Virtual provides
 Provides:       dsp-devel = %{version}-%{release}
@@ -85,7 +92,7 @@ make -C fftlib %{?_smp_mflags}
 
 # Build components
 for dir in agc/cpp AmFmPmBasebandDemod/cpp ArbitraryRateResampler/cpp autocorrelate/cpp \
-           DataConverter/DataConverter DataReader/python DataWriter/python \
+           BurstDeserializer/cpp DataConverter/DataConverter DataReader/python DataWriter/python \
            fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
            HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
            SigGen/python SigGen/java sinksocket/cpp sourcesocket/cpp \
@@ -110,7 +117,7 @@ export SDRROOT
 # Install the libraries and components
 for dir in dsp fftlib \
            agc/cpp AmFmPmBasebandDemod/cpp ArbitraryRateResampler/cpp autocorrelate/cpp \
-           DataConverter/DataConverter DataReader/python DataWriter/python \
+           BurstDeserializer/cpp DataConverter/DataConverter DataReader/python DataWriter/python \
            fastfilter/cpp fcalc/python freqfilter/python HardLimit/cpp HardLimit/java \
            HardLimit/python medianfilter/python psd/cpp SigGen/cpp \
            SigGen/python SigGen/java sinksocket/cpp sourcesocket/cpp \
@@ -130,6 +137,7 @@ rm -rf %{buildroot}
 %{_sdrroot}/dom/components/AmFmPmBasebandDemod
 %{_sdrroot}/dom/components/ArbitraryRateResampler
 %{_sdrroot}/dom/components/autocorrelate
+%{_sdrroot}/dom/components/BurstDeserializer
 %{_sdrroot}/dom/components/DataConverter
 %{_sdrroot}/dom/components/DataReader
 %{_sdrroot}/dom/components/DataWriter
@@ -160,6 +168,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Apr 09 2014 - 1.10.0-7
+- Add BurstDeserializer
+* Tue Apr 08 2014 - 1.10.0-6
+- Add devel pkg deps
+
 * Mon Apr 07 2014 - 1.10.0-5
 - Add virtual provides
 
